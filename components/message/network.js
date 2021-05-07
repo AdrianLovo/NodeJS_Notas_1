@@ -18,10 +18,15 @@ router.post('/', function(req, res){
 });
 
 router.get('/', function(req, res){
-    res.header({
-        "custom-header": "Nuestro valor personalizado",
+   
+    controller.getMessages()
+    .then((messageList) =>{
+        response.success(req, res, messageList, 200);
+    })  
+    .catch(e =>{
+        response.error(req, res, 'Unexpected Error', 500, e);
     })
-    response.success(req, res, 'Lista de mensajes');   
+
 });
 
 module.exports = router;
